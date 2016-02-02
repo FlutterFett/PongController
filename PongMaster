@@ -1,1 +1,31 @@
+public class PongController {
+  private Ball ball = new Ball();
+  private Paddle paddle = new Paddle(); //example instantiations to demonstrate logic, edit later
+  private int ballXMod;
+  private int ballYMod;
+  private int paddleSpeedMod;
+  private int angleMod;
+  
+  public void moveBall() {
+    ball.setX((ball.getX() + ball.getXTraverse()) * ballXMod);
+    ball.setY((ball.getY() + ball.getYTraverse()) * ballYMod);
+    
+  }
+  
+  public void ballHitsPaddle() {
+    ballXMod *= -1;
+    ball.setXTraverse(ball.getXTraverse() + 1);
+    ball.setYTraverse(ball.getYTraverse() + 1);
+    
+  }
+  
+  public void ballHitsBorder() {
+    ballYMod *= -1;
+    ball.setXTraverse(ball.getXTraverse() + 1);
+    ball.setYTraverse(ball.getYTraverse() + 1);
+    
+  }
+  
+  // These methods trigger on a tick basis, the latter two controlled by the ball touching boolean
 
+}
