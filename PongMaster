@@ -1,10 +1,29 @@
-public class PongController {
+public class PongMaster implements IPongMaster{
   private Ball ball = new Ball();
-  private Paddle paddle = new Paddle(); //example instantiations to demonstrate logic, edit later
+  private Paddle paddle = new Paddle(1); //example instantiations to demonstrate logic, edit later
+  private Paddle paddle = new Paddle(2);
   private int ballXMod;
   private int ballYMod;
   private int paddleSpeedMod;
   private int angleMod;
+  
+  public PongMaster(){
+  }
+  
+  public void run(){
+  }
+  @Override
+  public void onGameStart(){
+  }
+  @Override
+  public void onGameOver(){
+  }
+  @Override
+  public void onExitRequest(){
+  }
+  @Override
+  public void onDifficultyChangeRequest(){
+  }
   
   public void moveBall() {
     ball.setX((ball.getX() + ball.getXTraverse()) * ballXMod);
