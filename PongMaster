@@ -1,7 +1,8 @@
 public class PongMaster implements IPongMaster{
+  private IPongGUI ui;
   private Ball ball = new Ball();
-  private Paddle paddle = new Paddle(1); //example instantiations to demonstrate logic, edit later
-  private Paddle paddle = new Paddle(2);
+  private Paddle paddle1 = new Paddle(1); //example instantiations to demonstrate logic, edit later
+  private Paddle paddle2 = new Paddle(2);
   private int ballXMod;
   private int ballYMod;
   private int paddleSpeedMod;
@@ -25,10 +26,62 @@ public class PongMaster implements IPongMaster{
   public void onDifficultyChangeRequest(){
   }
   
+  public void run() {
+    //create clock
+    
+    ui.createMainMenu();
+    this.checkCollision();
+    
+  }
+  
   public void moveBall() {
     ball.setX((ball.getX() + ball.getXTraverse()) * ballXMod);
     ball.setY((ball.getY() + ball.getYTraverse()) * ballYMod);
     
+  }
+  
+  public void checkCollision() {
+    
+    if (ball.getYCoordinate() <= ui.TOP_OF_PANEL) {
+      this.ballHitsBorder();
+      
+    }
+    
+    if (checkLeftPaddle() || ball.getXCoordinate() >= ui.RIGHT_PADDLE) {
+      this.ballHitsPaddle();
+      
+    }
+    
+  }
+  
+  public boolean checkLeftPaddle() {
+    int x = ball.getXCoordinate();
+    int y = ball.getYCoordinate();
+    
+    if (x <= ui.LEFT_PADDLE) { // static values necessary for the generation of the game in the GUI
+      if (y >= paddle1.getTopCoordinate() && y <= paddle1.getBottomCoordinate()) {
+        
+        return true;
+      }
+      
+    }
+    
+    return false;
+  }
+  
+    public boolean checkRightPaddle() {
+    int x = ball.getXCoordinate();
+    int y = ball.getYCoordinate();
+    
+    if (x >= ui.RIGHT_PADDLE) { // static values necessary for the generation of the game in the GUI
+      if (y >= paddle2.getTopCoordinate() && y <= paddle1.getBottomCoordinate()) {
+        
+        return true;
+      }
+      
+    }
+    
+    return false;
   }
   
   public void ballHitsPaddle() {
