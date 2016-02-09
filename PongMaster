@@ -13,8 +13,10 @@ public class PongMaster implements IPongMaster{
 	private int ballYMod;
 	private int paddleSpeedMod;
 	private int angleMod;
+	private IPongGUI GUI;
 
 	public PongMaster(){
+	GUI = new PongGUI();
 	}
 	
 	@Override
@@ -37,6 +39,7 @@ public class PongMaster implements IPongMaster{
 		//create clock
 		ui.createMainMenu();
 		this.checkCollision();
+		GUI.initGUI();
 	}
 
 	public void moveBall() {
