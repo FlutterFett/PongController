@@ -1,100 +1,110 @@
+package com.neumont.csc150.PongController;
+
+import com.neumont.csc150.PongModel.Ball;
+import com.neumont.csc150.PongModel.Paddle;
+import com.neumont.csc150.PongView.IPongGUI;
+
 public class PongMaster implements IPongMaster{
-  private IPongGUI ui;
-  private Ball ball = new Ball();
-  private Paddle paddle1 = new Paddle(1); //example instantiations to demonstrate logic, edit later
-  private Paddle paddle2 = new Paddle(2);
-  private int ballXMod;
-  private int ballYMod;
-  private int paddleSpeedMod;
-  private int angleMod;
-  
-  public PongMaster(){
-  }
-  @Override
-  public void onGameStart(){
-  }
-  @Override
-  public void onGameOver(){
-  }
-  @Override
-  public void onExitRequest(){
-  }
-  @Override
-  public void onDifficultyChangeRequest(){
-  }
-  
-  public void run() {
-    //create clock
-    
-    ui.createMainMenu();
-    this.checkCollision();
-    
-  }
-  
-  public void moveBall() {
-    ball.setX((ball.getX() + ball.getXTraverse()) * ballXMod);
-    ball.setY((ball.getY() + ball.getYTraverse()) * ballYMod);
-    
-  }
-  
-  public void checkCollision() {
-    
-    if (ball.getYCoordinate() <= ui.TOP_OF_PANEL) {
-      this.ballHitsBorder();
-      
-    }
-    
-    if (checkLeftPaddle() || ball.getXCoordinate() >= ui.RIGHT_PADDLE) {
-      this.ballHitsPaddle();
-      
-    }
-    
-  }
-  
-  public boolean checkLeftPaddle() {
-    int x = ball.getXCoordinate();
-    int y = ball.getYCoordinate();
-    
-    if (x <= ui.LEFT_PADDLE) { // static values necessary for the generation of the game in the GUI
-      if (y >= paddle1.getTopCoordinate() && y <= paddle1.getBottomCoordinate()) {
-        
-        return true;
-      }
-      
-    }
-    
-    return false;
-  }
-  
-    public boolean checkRightPaddle() {
-    int x = ball.getXCoordinate();
-    int y = ball.getYCoordinate();
-    
-    if (x >= ui.RIGHT_PADDLE) { // static values necessary for the generation of the game in the GUI
-      if (y >= paddle2.getTopCoordinate() && y <= paddle1.getBottomCoordinate()) {
-        
-        return true;
-      }
-      
-    }
-    
-    return false;
-  }
-  
-  public void ballHitsPaddle() {
-    ballXMod *= -1;
-    ball.setXTraverse(ball.getXTraverse() + 1);
-    ball.setYTraverse(ball.getYTraverse() + 1);
-    
-  }
-  
-  public void ballHitsBorder() {
-    ballYMod *= -1;
-    ball.setXTraverse(ball.getXTraverse() + 1);
-    ball.setYTraverse(ball.getYTraverse() + 1);
-    
-  }
-  
-  // These methods trigger on a tick basis, the latter two controlled by the ball touching boolean
+	private IPongGUI ui;
+	private Ball ball = new Ball();
+	private Paddle paddle1 = new Paddle(1); //example instantiations to demonstrate logic, edit later
+	private Paddle paddle2 = new Paddle(2);
+	private int ballXMod;
+	private int ballYMod;
+	private int paddleSpeedMod;
+	private int angleMod;
+
+	public PongMaster(){
+	}
+	
+	@Override
+	public void onGameStart(){
+	}
+	
+	@Override
+	public void onGameOver(){
+	}
+	
+	@Override
+	public void onExitRequest(){
+	}
+	
+	@Override
+	public void onDifficultyChangeRequest(){
+	}
+
+	public void run() {
+		//create clock
+		ui.createMainMenu();
+		this.checkCollision();
+	}
+
+	public void moveBall() {
+		ball.setX((ball.getX() + ball.getXTraverse()) * ballXMod);
+		ball.setY((ball.getY() + ball.getYTraverse()) * ballYMod);
+	}
+
+	public void checkCollision() {
+		if (ball.getYCoordinate() <= IPongGUI.TOP_OF_PANEL) {
+			this.ballHitsBorder();
+		}
+		if (checkLeftPaddle() || ball.getXCoordinate() >= IPongGUI.RIGHT_PADDLE) {
+			this.ballHitsPaddle();
+		}
+	}
+
+	public boolean checkLeftPaddle() {
+		int x = ball.getXCoordinate();
+		int y = ball.getYCoordinate();
+
+		if (x <= IPongGUI.LEFT_PADDLE) { // static values necessary for the generation of the game in the GUI
+			if (y >= paddle1.getTopCoordinate() && y <= paddle1.getBottomCoordinate()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean checkRightPaddle() {
+		int x = ball.getXCoordinate();
+		int y = ball.getYCoordinate();
+
+		if (x >= IPongGUI.RIGHT_PADDLE) { // static values necessary for the generation of the game in the GUI
+			if (y >= paddle2.getTopCoordinate() && y <= paddle1.getBottomCoordinate()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void ballHitsPaddle() {
+		ballXMod *= -1;
+		ball.setXTraverse(ball.getXTraverse() + 1);
+		ball.setYTraverse(ball.getYTraverse() + 1);
+	}
+
+	public void ballHitsBorder() {
+		ballYMod *= -1;
+		ball.setXTraverse(ball.getXTraverse() + 1);
+		ball.setYTraverse(ball.getYTraverse() + 1);
+	}
+	
+	public int getPaddleSpeedMod() {
+		return paddleSpeedMod;
+	}
+
+	public void setPaddleSpeedMod(int paddleSpeedMod) {
+		this.paddleSpeedMod = paddleSpeedMod;
+	}
+	
+	public int getAngleMod() {
+		return angleMod;
+	}
+
+	public void setAngleMod(int angleMod) {
+		this.angleMod = angleMod;
+	}
+
+	// These methods trigger on a tick basis, the latter two controlled by the ball touching boolean
 
 }
