@@ -38,56 +38,6 @@ public class PongMaster implements IPongMaster{
 		ui.createMainMenu();
 		this.checkCollision();
 	}
-
-	public void moveBall() {
-		ball.setX((ball.getX() + ball.getXTraverse()) * ballXMod);
-		ball.setY((ball.getY() + ball.getYTraverse()) * ballYMod);
-	}
-
-	public void checkCollision() {
-		if (ball.getYCoordinate() <= IPongGUI.TOP_OF_PANEL) {
-			this.ballHitsBorder();
-		}
-		if (checkLeftPaddle() || ball.getXCoordinate() >= IPongGUI.RIGHT_PADDLE) {
-			this.ballHitsPaddle();
-		}
-	}
-
-	public boolean checkLeftPaddle() {
-		int x = ball.getXCoordinate();
-		int y = ball.getYCoordinate();
-
-		if (x <= IPongGUI.LEFT_PADDLE) { // static values necessary for the generation of the game in the GUI
-			if (y >= paddle1.getTopCoordinate() && y <= paddle1.getBottomCoordinate()) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public boolean checkRightPaddle() {
-		int x = ball.getXCoordinate();
-		int y = ball.getYCoordinate();
-
-		if (x >= IPongGUI.RIGHT_PADDLE) { // static values necessary for the generation of the game in the GUI
-			if (y >= paddle2.getTopCoordinate() && y <= paddle1.getBottomCoordinate()) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public void ballHitsPaddle() {
-		ballXMod *= -1;
-		ball.setXTraverse(ball.getXTraverse() + 1);
-		ball.setYTraverse(ball.getYTraverse() + 1);
-	}
-
-	public void ballHitsBorder() {
-		ballYMod *= -1;
-		ball.setXTraverse(ball.getXTraverse() + 1);
-		ball.setYTraverse(ball.getYTraverse() + 1);
-	}
 	
 	public int getPaddleSpeedMod() {
 		return paddleSpeedMod;
