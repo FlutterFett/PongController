@@ -10,9 +10,6 @@ public class PongMaster implements IPongMaster{
   
   public PongMaster(){
   }
-  
-  public void run(){
-  }
   @Override
   public void onGameStart(){
   }
